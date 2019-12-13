@@ -374,6 +374,10 @@ We list all backwards-compatible additions here. These are currently available i
 
 #### Latest
 
+- The task assignee is now nullable: you can create / update unassigned tasks by sending null as assignee. The tasks.list and tasks.info endpoints also return null as assignee in case the task is unassigned.
+
+- On API versions older than 2019-10-09, the assignee is returned as { type: user, id: null } in case the task is unassigned.
+
 - We added `milestones.delete`.
 
 - We added a `estimated_closing_date` filter to `deals.list`.
@@ -3433,7 +3437,7 @@ Get a list of tasks.
                 + work_type (object, nullable)
                     + type: `workType` (string)
                     + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-                + assignee (object)
+                + assignee (object, nullable)
                     + type: `user` (enum)
                         + Members
                             + user
@@ -3481,7 +3485,7 @@ Get information about a task.
             + work_type (object, nullable)
                 + type: `workType` (string)
                 + id: `32665afd-1818-0ed3-9e18-a603a3a21b95` (string)
-            + assignee (object)
+            + assignee (object, nullable)
                 + type: `user` (enum)
                     + Members
                         + user
@@ -3521,7 +3525,7 @@ Create a new task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable)
             + type: `user` (enum)
                 + Members
                     + user
@@ -3560,7 +3564,7 @@ Update a task.
                 + Members
                     + min - Minutes
             + value: `60` (number, required)
-        + assignee (object, optional)
+        + assignee (object, optional, nullable)
             + type: `user` (enum)
                 + Members
                     + user
